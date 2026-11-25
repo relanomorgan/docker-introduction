@@ -1,0 +1,8 @@
+## Utilisateur
+User="101:101"
+uid=101(nginx) gid=101(nginx) groups=101(nginx)
+
+USER     PID   COMMAND
+nginx        1 nginx: master process nginx -g daemon off;
+nginx       21 nginx: worker process
+nginx       22 nginx: worker process

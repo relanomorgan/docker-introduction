@@ -1,0 +1,33 @@
+# Ce qui ne doit PAS être envoyé au build (ni se retrouver dans l'image)
+
+# Historique git et config d'éditeur
+.git
+.gitignore
+.vscode
+.idea
+
+# Dépendances et build locaux : ils sont refaits proprement dans l'image
+node_modules
+dist
+
+# Fichiers Docker eux-mêmes
+Dockerfile*
+.dockerignore
+docker-compose*.yml
+compose*.yml
+
+# Secrets éventuels
+.env
+*.env
+*.pem
+*.key
+
+# Documentation, résultats d'audit, logs
+*.md
+audit
+dhi
+*.log
+npm-debug.log*
+
+# Fichiers inutiles du projet
+public/*.old

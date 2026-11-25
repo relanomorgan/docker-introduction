@@ -1,0 +1,24 @@
+services:
+  drupal:
+    image: drupal:10-apache
+    ports:
+      - "8081:80"
+    volumes:
+      - drupal-modules:/var/www/html/modules
+      - drupal-profiles:/var/www/html/profiles
+      - drupal-themes:/var/www/html/themes
+      - drupal-sites:/var/www/html/sites
+  
+  postgres: 
+    image:  postgres:16
+    environment:
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    volumes: 
+      - postgres-data:/var/lib/postgresql/data
+
+volumes:   
+  drupal-modules:  
+  drupal-profiles:  
+  drupal-themes:
+  drupal-sites:
+  postgres-data:

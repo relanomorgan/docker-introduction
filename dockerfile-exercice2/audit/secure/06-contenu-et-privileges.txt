@@ -1,0 +1,33 @@
+## Outils présents dans l'image finale
+sh: /bin/sh
+ash: /bin/ash
+bash: absent
+apk: absent
+wget: /usr/bin/wget
+curl: absent
+nc: /usr/bin/nc
+vi: /usr/bin/vi
+git: absent
+node: absent
+npm: absent
+python3: absent
+gcc: absent
+make: absent
+ssh: absent
+
+## Nombre de paquets Alpine (base apk)
+22
+
+## Fichiers setuid
+
+## Privilèges du conteneur
+ReadOnly=true Privileged=false CapDrop=[ALL] SecOpt=[no-new-privileges:true] Memory=134217728 NanoCpus=500000000 Pids=100 Restart=unless-stopped Tmpfs={"/tmp":"rw,noexec,nosuid,size=16m"} Mounts=[]
+CapEff:	0000000000000000
+NoNewPrivs:	1
+Health=healthy
+
+## Tests d'attaque simples
+sh: can't create /usr/share/nginx/html/index.html: Read-only file system
+touch: /etc/x: Read-only file system
+sh: /tmp/x.sh: Permission denied
+sh: apk: not found

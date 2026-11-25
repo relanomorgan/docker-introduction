@@ -1,0 +1,3 @@
+## Test fonctionnement (docker run -d --name quiz-initial -p 8083:80 quiz-docker:initial)
+GET http://localhost:8083 -> HTTP 200
+<title>Quiz App</title>

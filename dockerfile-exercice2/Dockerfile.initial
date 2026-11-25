@@ -1,0 +1,30 @@
+# ---------- Étape 1 : construction de l'application (build) ----------
+# On utilise Node uniquement pour compiler l'app Vite en fichiers statiques
+FROM node:18-alpine AS build
+
+# Répertoire de travail dans l'image
+WORKDIR /app
+
+# On copie d'abord les fichiers de dépendances pour profiter du cache Docker
+COPY package.json package-lock.json ./
+
+# Installation des dépendances exactement comme dans package-lock.json
+RUN npm ci
+
+# On copie ensuite le reste du code source (filtré par .dockerignore)
+COPY . .
+
+# Compilation : Vite génère les fichiers HTML/CSS/JS dans le dossier dist/
+RUN npm run build
+
+# ---------- Étape 2 : image finale servie par Nginx ----------
+# Node n'est plus nécessaire : un serveur web léger suffit pour des fichiers statiques
+FROM nginx:1.27-alpine
+
+# On récupère uniquement le résultat du build depuis l'étape 1
+COPY --from=build /app/dist /usr/share/nginx/html
+
+# Nginx écoute sur le port 80 dans le conteneur
+EXPOSE 80
+
+# Pas besoin de CMD : l'image nginx en fournit déjà un ("nginx -g daemon off;")

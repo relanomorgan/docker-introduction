@@ -1,0 +1,18 @@
+## my-app:1.0 (FROM node:22, version d'origine de l'atelier)
+{"status":"ok"}
+IMAGE        ID             DISK USAGE   CONTENT SIZE   EXTRA
+my-app:1.0   aaa3d76322f5       1.64GB          412MB   U    
+User="" (vide = root)
+uid=0(root) gid=0(root) groups=0(root)
+sh: /usr/bin/sh
+bash: /usr/bin/bash
+apt: /usr/bin/apt
+npm: /usr/local/bin/npm
+npx: /usr/local/bin/npx
+curl: /usr/bin/curl
+wget: /usr/bin/wget
+git: /usr/bin/git
+gcc: /usr/bin/gcc
+python3: /usr/bin/python3
+make: /usr/bin/make
+nodemon (devDependency) installé ? node_modules/.bin/nodemon

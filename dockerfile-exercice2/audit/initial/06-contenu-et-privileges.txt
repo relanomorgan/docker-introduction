@@ -1,0 +1,45 @@
+## Outils présents dans l'image finale
+sh: /bin/sh
+ash: /bin/ash
+bash: absent
+apk: /sbin/apk
+wget: /usr/bin/wget
+curl: /usr/bin/curl
+nc: /usr/bin/nc
+vi: /usr/bin/vi
+git: absent
+node: absent
+npm: absent
+python3: absent
+gcc: absent
+make: absent
+ssh: absent
+
+## Nombre de paquets Alpine
+68
+
+## Fichiers setuid
+
+## Contenu du site
+/usr/share/nginx/html:
+total 36
+drwxr-xr-x    1 root     root          4096 Nov 25 08:08 .
+drwxr-xr-x    1 root     root          4096 Apr 16  2025 ..
+-rw-r--r--    1 root     root           497 Apr 16  2025 50x.html
+drwxr-xr-x    2 root     root          4096 Nov 25 08:08 assets
+-rw-r--r--    1 root     root           577 Nov 25 08:08 index.html
+-rwxr-xr-x    1 root     root          5015 Nov 25 08:08 vite.svg
+-rwxr-xr-x    1 root     root          1497 Nov 25 08:08 vite.svg.old
+-rwxr-xr-x    1 root     root          3714 Nov 25 08:08 vite1.svg
+
+/usr/share/nginx/html/assets:
+total 20
+drwxr-xr-x    2 root     root          4096 Nov 25 08:08 .
+drwxr-xr-x    1 root     root          4096 Nov 25 08:08 ..
+-rw-r--r--    1 root     root          4358 Nov 25 08:08 index-4d3241ae.js
+-rw-r--r--    1 root     root          1953 Nov 25 08:08 index-68748d69.css
+
+## Montages / privilèges du conteneur
+ReadOnly=false Privileged=false CapDrop=<no value> SecOpt=<no value> Memory=0 NanoCpus=0 Pids=<no value> Restart=no Mounts=[]
+CapEff:	00000000a80425fb
+Healthcheck=null

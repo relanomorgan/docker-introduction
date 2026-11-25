@@ -1,0 +1,73 @@
+# =====================================================================
+#  Quiz Docker - déploiement sécurisé avec Docker Compose
+#
+#  Exploitation (depuis ce dossier) :
+#    docker compose up -d --build   construire l'image puis démarrer
+#    docker compose ps              état du service (doit être "healthy")
+#    docker compose logs -f         suivre les logs (Ctrl+C pour quitter)
+#    docker compose restart         redémarrer le service
+#    docker compose stop / start    arrêter / relancer sans supprimer
+#    docker compose down            arrêter et supprimer conteneur + réseau
+#
+#  Application : http://localhost:8082
+# =====================================================================
+
+services:
+  quiz-docker:
+    # Construit l'image à partir du Dockerfile de ce dossier...
+    build:
+      context: .
+      dockerfile: Dockerfile
+    # ...et lui donne ce nom:tag
+    image: quiz-docker:secure
+    container_name: quiz-docker
+
+    # Port 8082 de l'hôte -> port 8080 de Nginx non-root dans le conteneur
+    ports:
+      - "8082:8080"
+
+    # Redémarre automatiquement en cas de crash ou de redémarrage de Docker,
+    # sauf si on l'a arrêté volontairement (docker compose stop)
+    restart: unless-stopped
+
+    # ---------- Sécurisation du conteneur ----------
+    # 1. Jamais root : utilisateur nginx (uid/gid 101)
+    user: "101:101"
+
+    # 2. Système de fichiers en lecture seule : un attaquant ne peut ni modifier
+    #    le site ni déposer de fichier...
+    read_only: true
+    # ...sauf dans /tmp, en mémoire (RAM), dont Nginx a besoin pour son PID
+    #    et ses fichiers temporaires. noexec : rien ne peut y être exécuté.
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=16m
+
+    # 3. Aucune capacité Linux spéciale (pas besoin : port 8080 > 1024)
+    cap_drop:
+      - ALL
+
+    # 4. Interdit toute élévation de privilèges (setuid, sudo...)
+    security_opt:
+      - no-new-privileges:true
+
+    # 5. Limites de ressources : un conteneur compromis ou bogué
+    #    ne peut pas saturer la machine
+    deploy:
+      resources:
+        limits:
+          cpus: "0.50"
+          memory: 128M
+          pids: 100        # nombre max de processus (protège des "fork bombs")
+
+    # 6. Logs limités en taille (évite de remplir le disque)
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+    # 7. Pas de "volumes:" et surtout PAS de /var/run/docker.sock :
+    #    monter le socket Docker donnerait au conteneur le contrôle total de Docker,
+    #    donc de la machine (équivalent root sur l'hôte).
+
+    # Le HEALTHCHECK est défini dans le Dockerfile et hérité ici

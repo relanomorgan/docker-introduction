@@ -1,0 +1,10 @@
+## docker history quiz-docker:secure
+0B	HEALTHCHECK {Test:[CMD-SHELL wget -q --spider http://127.0.0.1:8080/ || exit 1] Interval:30s Timeout:3s StartPeriod:5s StartInterval:0s Retries:3}
+0B	EXPOSE [8080/tcp]
+0B	USER 101:101
+0B	CMD ["nginx" "-g" "daemon off;"]
+0B	ENTRYPOINT ["/docker-entrypoint.sh"]
+0B	STOPSIGNAL SIGQUIT
+0B	ENV PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+0B	LABEL org.opencontainers.image.title=quiz-docker org.opencontainers.image.description=Quiz Docker (Vite) servi par Nginx non-root
+15.6MB	COPY / / # buildkit

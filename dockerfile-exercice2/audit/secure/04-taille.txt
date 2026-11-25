@@ -1,0 +1,4 @@
+## Taille
+IMAGE                ID             DISK USAGE   CONTENT SIZE   EXTRA
+quiz-docker:secure   6343dd291266       21.5MB         5.88MB   U    
+Taille (octets) = 21487750

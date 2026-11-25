@@ -1,0 +1,18 @@
+## Utilisateur configuré dans l'image (Config.User, vide = root)
+User=""
+
+## id / whoami
+uid=0(root) gid=0(root) groups=0(root),0(root),1(bin),2(daemon),3(sys),4(adm),6(disk),10(wheel),11(floppy),20(dialout),26(tape),27(video)
+
+## Processus
+USER     PID   COMMAND
+root         1 nginx: master process nginx -g daemon off;
+nginx       30 nginx: worker process
+nginx       31 nginx: worker process
+nginx       32 nginx: worker process
+nginx       33 nginx: worker process
+nginx       34 nginx: worker process
+nginx       35 nginx: worker process
+nginx       36 nginx: worker process
+nginx       37 nginx: worker process
+root        68 ps -o user,pid,args

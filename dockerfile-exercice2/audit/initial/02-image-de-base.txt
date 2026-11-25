@@ -1,0 +1,17 @@
+## Image de base (dernier FROM du Dockerfile.initial)
+3:FROM node:18-alpine AS build
+22:FROM nginx:1.27-alpine
+
+## /etc/os-release
+NAME="Alpine Linux"
+ID=alpine
+VERSION_ID=3.21.3
+PRETTY_NAME="Alpine Linux v3.21"
+HOME_URL="https://alpinelinux.org/"
+BUG_REPORT_URL="https://gitlab.alpinelinux.org/alpine/aports/-/issues"
+
+## Version nginx
+nginx version: nginx/1.27.5
+
+## Node present dans l'image finale ?
+sh: node: not found

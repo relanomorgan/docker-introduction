@@ -1,0 +1,22 @@
+## docker history quiz-docker:initial
+0B	EXPOSE [80/tcp]
+57.3kB	COPY /app/dist /usr/share/nginx/html # buildkit
+38.7MB	RUN /bin/sh -c set -x     && apkArch="$(cat /etc/apk/arch)"     && nginxPackages="         nginx=${NGINX_VERSION}-r${PKG_RELEASE}         nginx-module-xslt=${NGINX_VERSION}-r${DYNPKG_RELEASE}  
+0B	ENV NJS_RELEASE=1
+0B	ENV NJS_VERSION=0.8.10
+0B	CMD ["nginx" "-g" "daemon off;"]
+0B	STOPSIGNAL SIGQUIT
+0B	EXPOSE map[80/tcp:{}]
+0B	ENTRYPOINT ["/docker-entrypoint.sh"]
+16.4kB	COPY 30-tune-worker-processes.sh /docker-entrypoint.d # buildkit
+12.3kB	COPY 20-envsubst-on-templates.sh /docker-entrypoint.d # buildkit
+12.3kB	COPY 15-local-resolvers.envsh /docker-entrypoint.d # buildkit
+12.3kB	COPY 10-listen-on-ipv6-by-default.sh /docker-entrypoint.d # buildkit
+8.19kB	COPY docker-entrypoint.sh / # buildkit
+5.36MB	RUN /bin/sh -c set -x     && addgroup -g 101 -S nginx     && adduser -S -D -H -u 101 -h /var/cache/nginx -s /sbin/nologin -G nginx -g nginx nginx     && apkArch="$(cat /etc/apk/arch)"     && ng
+0B	ENV DYNPKG_RELEASE=1
+0B	ENV PKG_RELEASE=1
+0B	ENV NGINX_VERSION=1.27.5
+0B	LABEL maintainer=NGINX Docker Maintainers <docker-maint@nginx.com>
+0B	CMD ["/bin/sh"]
+8.5MB	ADD alpine-minirootfs-3.21.3-x86_64.tar.gz / # buildkit

@@ -1,0 +1,19 @@
+# syntax=docker/dockerfile:1
+# Version "Docker Hardened Image" de l'atelier
+# https://docs.docker.com/learn/content/build-on-a-trusted-foundation/
+# Nécessite : docker login dhi.io  (compte Docker gratuit)
+
+# Étape de build : variante -dev (a un shell et npm, tourne en root)
+FROM dhi.io/node:22-alpine3.23-dev AS builder
+WORKDIR /usr/src/app
+COPY package*.json ./
+# --omit=dev : nodemon (outil de dev) n'est pas installé
+RUN npm ci --omit=dev
+COPY . .
+
+# Étape finale : variante runtime (pas de shell, pas de npm, utilisateur node uid 1000)
+FROM dhi.io/node:22-alpine3.23
+ENV PATH=/app/node_modules/.bin:$PATH
+COPY --from=builder --chown=node:node /usr/src/app /app
+WORKDIR /app
+CMD ["node", "index.js"]
